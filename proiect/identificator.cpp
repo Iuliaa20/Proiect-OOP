@@ -73,6 +73,10 @@ void tip_comanda(char* comanda, int* tip_token)
 						*tip_token = FLOAT;
 					else if (strcmp(p, "CHAR") == 0)
 						*tip_token = CHAR;
+					else if (strcmp(p, "CSV") == 0)
+						*tip_token = CSV;
+					else if (strcmp(p, "IMPORT") == 0)
+						*tip_token = IMPORT;
 					else if (strcmp(p, "INSERT") == 0)
 						*tip_token = INSERT;
 					else if (strcmp(p, "INTO") == 0)

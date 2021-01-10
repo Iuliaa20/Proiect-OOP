@@ -63,35 +63,54 @@ int ParseCreate(char* numeTabel, char* tabelInfo, int* dimensiune, char* comanda
 			}
 			else
 			{
-				if (tip_token == CHAR)
+				if (tip_token == INT)
 				{
-					strcpy(comanda,comanda + 5);
-					tip_comanda(comanda, &tip_token);
-					if (tip_token != '(')
+					tabelInfo[id] = 'I';
+					tabelInfo[id + 1] = ' ';
+					id = id + 2;
+				}
+				else
+				{
+					if (tip_token == FLOAT)
 					{
-						printf("Eroare: lipseste ( \n");
-						return 0;
+						tabelInfo[id] = 'F';
+						tabelInfo[id+1] = ' ';
+						id = id + 2;
 					}
 					else
-					{
-						strcpy(comanda, comanda + 2);
-						tip_comanda(comanda, &tip_token);
-						if (tip_token != INTEGER_NB)
+						if (tip_token == CHAR)
 						{
-							printf("Eroare: se asteapta dimensiune '%d' integer \n", tip_token);
-							return 0;
-						}
-						else
-						{
-							strcpy(comanda, comanda+ strlen(p)+1);
+							strcpy(comanda, comanda + 5);
 							tip_comanda(comanda, &tip_token);
-							if (tip_token != ')')
+							if (tip_token != '(')
 							{
-								printf("Eroare: lipseste '%d' '%s' ) \n", tip_token, p);
+								printf("Eroare: lipseste ( \n");
 								return 0;
 							}
+							else
+							{
+								strcpy(comanda, comanda + 2);
+								tip_comanda(comanda, &tip_token);
+								if (tip_token != INTEGER_NB)
+								{
+									printf("Eroare: se asteapta dimensiune '%d' integer \n", tip_token);
+									return 0;
+								}
+								else
+								{
+									tabelInfo[id] = 'C';
+									tabelInfo[id + 1] = ' ';
+									id = id + 2;
+									strcpy(comanda, comanda + strlen(p) + 1);
+									tip_comanda(comanda, &tip_token);
+									if (tip_token != ')')
+									{
+										printf("Eroare: lipseste '%d' '%s' ) \n", tip_token, p);
+										return 0;
+									}
+								}
+							}
 						}
-					}	
 				}
 				
 			}

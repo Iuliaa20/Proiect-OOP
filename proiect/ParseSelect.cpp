@@ -24,7 +24,7 @@ int ParseSelect(char* numeTabel, char* comanda, char* coloane)
 					printf("Eroare: lipseste keyword FROM.\n");
 					return 0;
 				}
-				strcpy(comanda, comanda + 5);
+				strcpy(comanda, comanda + strlen(p)+1);
 				tip_comanda(comanda, &tip_token);
 				if (tip_token != IDENTIFICATOR)
 				{
@@ -39,15 +39,37 @@ int ParseSelect(char* numeTabel, char* comanda, char* coloane)
 					}
 					numeTabel[i] = '\0';
 				}
+				strcpy(comanda, comanda + strlen(p) + 1);
 				return 2;
 			}
 			else
 			{
-				for (i = 0; i < strlen(p); i++)
+				
+				//for (i = 0; i < strlen(p); i++)
+				//{
+				//	coloane[i] = p[i];
+				//}
+				//coloane[i] = ' ';
+				int ok = 0,id=0;
+				do
 				{
-					coloane[i] = p[i];
-				}
-				coloane[i] = ' ';
+					if (ok != 0)
+					{
+						strcpy(comanda, comanda + strlen(p) + 1);
+						tip_comanda(comanda, &tip_token);
+					}
+					for (int i = 0;i < strlen(p);i++)
+					{
+						coloane[id] = p[i];
+						id++;
+					}
+					coloane[id] = ' ';
+					id++;
+					strcpy(comanda, comanda + strlen(p) + 1);
+					tip_comanda(comanda, &tip_token);
+					ok++;
+				} while (tip_token == ',');
+				/*
 				strcpy(comanda, comanda + strlen(p) + 1);
 				tip_comanda(comanda, &tip_token);
 				while (tip_token == ',')
@@ -70,8 +92,8 @@ int ParseSelect(char* numeTabel, char* comanda, char* coloane)
 				{
 					strcpy(comanda, comanda + strlen(p) + 1);
 					tip_comanda(comanda, &tip_token);
-				}
-				coloane[strlen(coloane) + 1] = '\0';
+				}*/
+				coloane[strlen(coloane)+1] = '\0';
 				if (tip_token != FROM)
 				{
 					printf("Eroare: keyword FROM este scris gresit.\n");
@@ -92,6 +114,8 @@ int ParseSelect(char* numeTabel, char* comanda, char* coloane)
 					}
 					numeTabel[i] = '\0';
 				}
+				strcpy(comanda, comanda + strlen(p) + 1);
+
 			}
 		}
 		else

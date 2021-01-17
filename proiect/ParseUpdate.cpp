@@ -2,11 +2,12 @@
 #include <stdio.h>
 #include <string.h>
 #include "identificator.h"
+using namespace std;
 
-int ParseUpdate(char* numeTabel, char* numeColoanaSet, char* valoareSet, char* numeColoanaWhere, char* valoareWhere, char* comanda, char* tabelInfo)
+int ParseUpdate(char* numeTabel, char* numeColoanaSet, char* valoareSet, int &tipSet, char* numeColoanaWhere, char* valoareWhere, int &tipWhere, char* comanda, char* tabelInfo)
 {
 	char* p;
-	int i, tip_token = 0;
+	int i, tip_token = 0; 
 	p = strtok(comanda, " ");
 	if (p != NULL)
 	{
@@ -64,6 +65,7 @@ int ParseUpdate(char* numeTabel, char* numeColoanaSet, char* valoareSet, char* n
 		}
 		else
 		{
+			tipSet = tip_token;
 			for (i = 0; i < strlen(p);i++)
 			{
 				valoareSet[i] = p[i];
@@ -109,12 +111,14 @@ int ParseUpdate(char* numeTabel, char* numeColoanaSet, char* valoareSet, char* n
 		}
 		else
 		{
+			tipWhere = tip_token;
 			for (i = 0; i < strlen(p);i++)
 			{
 				valoareWhere[i] = p[i];
 			}
 			valoareWhere[i] = '\0';
 		}
+		strcpy(comanda, comanda + strlen(p) + 1);
 	}
 	return 1;
 }

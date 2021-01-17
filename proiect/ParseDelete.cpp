@@ -3,7 +3,7 @@
 #include <string.h>
 #include "identificator.h"
 
-char ParseDelete(char check, char* numeTabel, char* numeColoana, char* valoare, char* comanda, int tip_token)
+char ParseDelete(char check, char* numeTabel, char* numeColoana, char* valoare,int &tipWhere, char* comanda, int tip_token)
 {
 	char* p;
 	int i;
@@ -77,12 +77,15 @@ char ParseDelete(char check, char* numeTabel, char* numeColoana, char* valoare, 
 		}
 		else
 		{
+			tipWhere = tip_token;
 			for (i = 0; i < strlen(p);i++)
 			{
 				valoare[i] = p[i];
 			}
 			valoare[i] = '\0';
 		}
+		strcpy(comanda, comanda + strlen(p) + 1);
+
 	}
 	check = 'Y';
 	return check;

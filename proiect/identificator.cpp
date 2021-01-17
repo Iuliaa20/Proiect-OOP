@@ -2,15 +2,23 @@
 #include "identificator.h"
 #include <cstring>
 #include <string>
-
+#include <algorithm>
 using namespace std;
 
 char* citire_comenzi(char* input)
 {
 	*input = '\0';
 	string tmp;
-	std::getline(std::cin, tmp);
-	strcat(input, tmp.c_str());
+	while (std::getline(std::cin, tmp))
+	{
+		if (tmp.empty())
+			break;
+		else
+		{
+			transform(tmp.begin(), tmp.end(), tmp.begin(), ::toupper);
+			strcat(input, tmp.c_str());
+		}
+	}
 	return input;
 }
 

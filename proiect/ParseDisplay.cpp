@@ -32,6 +32,7 @@ int ParseDisplay(char* numeTabel, char* comanda)
 			}
 			numeTabel[i] = '\0';
 		}
+		strcpy(comanda, comanda + strlen(p) + 1);
 	}
 	return 1;
 }

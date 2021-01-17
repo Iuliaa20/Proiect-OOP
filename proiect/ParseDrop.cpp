@@ -24,7 +24,9 @@ int ParseDrop( char* numeTabel, char* comanda, int tip_token)
 				numeTabel[i] = p[i];
 			}
 			numeTabel[i] = '\0';
-			return 1;
+			//return 1;
 		}
+		strcpy(comanda, comanda + strlen(p) + 1);
 	}
+	return 1;
 }
